@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI CALCULATOR</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <script>
+        function amountChange() {
+            document.getElementById("loanAmount").value = document.getElementById("amountRange").value;
+        }
+
+        function yearChange() {
+            document.getElementById("loanTenure").value = document.getElementById("tenureRange").value;
+        }
+
+        function rateChange() {
+            document.getElementById("interestRate").value = document.getElementById("interestRange").value;
+        }
+
+        function estimate() {
+            var monthlyEmi = document.getElementById("monthlyEmi").value;
+            var years = document.getElementById("loanTenure").value;
+            var p = document.getElementById("loanAmount").value;
+            var totalPayable;
+            var totalInterest;
+
+            years = years * 12;
+            totalPayable = monthlyEmi * years;
+            totalInterest = totalPayable - p;
+
+            document.getElementById("loan").value = p;
+            document.getElementById("interest").value = totalInterest;
+            document.getElementById("total").value = totalPayable;
+
+        }
+
+        function emiCalculate() {
+            var p = document.getElementById("loanAmount").value;
+            var n = document.getElementById("loanTenure").value;
+            var r = document.getElementById("interestRate").value;
+            var emi;
+
+            n = n * 12;
+            r = (r / 12) / 100;
+
+            emi = parseInt([p * r * Math.pow((1 + r), n)] / [Math.pow((1 + r), n) - 1]);
+
+            document.getElementById("monthlyEmi").value = ` ${emi}`;
+
+            estimate();
+        }
+    </script>
+</head>
+
+<body class="container-fluid d-flex justify-content-center ">
+    <section class="border rounded-4 w-50 p-3 mt-2 shadow ">
+        <div class="mb-4 w-100  ">
+            <h2 class="text-bg-success text-center rounded-2 p-2 ">EMI Calculator</h2>
+        </div>
+        <div class="mb-3 w-100 ">
+            <div class="input-group mb-2 ">
+                <span class="input-group-text ">Loan Amount</span>
+                <input type="text" class="form-control " id="loanAmount">
+                <span class="input-group-text "><i class="bi bi-currency-rupee"></i></span>
+            </div>
+            <input type="range" id="amountRange" onchange="amountChange()" class="w-100 form-range " min="50000"
+                max="1000000">
+        </div>
+        <div class="mb-3 w-100 ">
+            <div class="input-group mb-2 ">
+                <span class="input-group-text ">Loan Tenure</span>
+                <input type="text" class="form-control " id="loanTenure">
+                <span class="input-group-text ">Years</span>
+            </div>
+            <input type="range" id="tenureRange" onchange="yearChange()" class="form-range " min="1" max="10" step="1">
+        </div>
+        <div class="mb-3 w-100 ">
+            <div class="input-group mb-2 ">
+                <span class="input-group-text ">Interest Rate</span>
+                <input type="text" class="form-control " id="interestRate">
+                <span class="input-group-text "><i class="bi bi-percent"></i></span>
+            </div>
+            <input type="range" id="interestRange" onchange="rateChange()" class="form-range " min="7" max="18"
+                step="0.1">
+        </div>
+        <div class="mb-3 w-100 d-flex justify-content-between">
+            <h4>Monthly EMI</h4>
+            <div class="input-group w-50 ">
+                <span class="input-group-text "><i class="bi bi-currency-rupee"></i></span>
+                <input type="text" class="form-control w-50 " id="monthlyEmi" />
+            </div>
+            <button class="btn btn-danger " onclick="emiCalculate()">Calculate</button>
+        </div>
+
+        <div class="mt-5 row">
+            <div class="col input-group ">
+                <span class="input-group-text ">Loan</span>
+                <input type="text" id="loan" class="form-control ">
+            </div>
+            <div class="col input-group ">
+                <span class="input-group-text ">Interest</span>
+                <input type="text" id="interest" class="form-control ">
+            </div>
+            <div class="col input-group ">
+                <span class="input-group-text ">Total</span>
+                <input type="text" id="total" class="form-control ">
+            </div>
+
+        </div>
+    </section>
+
+
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+
+</html>
