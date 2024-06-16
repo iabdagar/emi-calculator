@@ -1,2 +1,2 @@
 # emi-calculator
-By this app one can calculate EMI.
+This is EMI claculator, one can eailsy calculate EMI efficently. This app is build by using HTML CSS JAVASCRIPT.
